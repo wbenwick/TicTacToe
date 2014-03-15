@@ -2,7 +2,7 @@
 //  FLXViewController.m
 //  TicTacToe
 //
-//  Created by Administrator on 3/15/14.
+//  Created by Wes Benwick on 3/15/14.
 //  Copyright (c) 2014 FileLogix. All rights reserved.
 //
 
@@ -59,12 +59,17 @@
                 myLabel.text = @"X";
                 myLabel.alpha=1.0f;
                 self.currentPlayer = @"O";
+                self.whichPlayerLabel.text = @"Player O's turn.";
+                self.whichPlayerLabel.alpha = 1.0f;
+
             }
             else {
                 myLabel.textColor = [UIColor blueColor];
                 myLabel.text = @"O";
                 myLabel.alpha = 1.0f;
                 self.currentPlayer = @"X";
+                self.whichPlayerLabel.text = @"Player X's turn.";
+                self.whichPlayerLabel.alpha = 1.0f;
             }
         }
         
@@ -297,6 +302,7 @@
     self.resetButton.alpha = 0.0f;
     
     self.whichPlayerLabel.text = @"Player X goes first.";
+    self.currentPlayer = @"X";
 }
 - (IBAction)resetButtonPressed:(id)sender {
     
