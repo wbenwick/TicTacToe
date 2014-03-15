@@ -9,6 +9,7 @@
 #import "FLXViewController.h"
 
 @interface FLXViewController () <UIAlertViewDelegate>
+
 @property (strong, nonatomic) IBOutlet UILabel *myLabelOne;
 
 @property (strong, nonatomic) IBOutlet UILabel *myLabelTwo;
@@ -22,7 +23,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *whichPlayerLabel;
 @property (strong, nonatomic) IBOutlet NSString *currentPlayer;
 @property (strong, nonatomic) IBOutlet NSString *winner;
-@property (strong, nonatomic) IBOutlet NSNumber *numberOfMoves;
+@property int numberOfMoves;
 
 @property BOOL gameOver;
 @property (strong, nonatomic) IBOutlet UIButton *resetButton;
@@ -53,20 +54,26 @@
     NSLog(@"Label Tapped.");
     if (!self.gameOver) {
         UILabel* myLabel = [self findLabelUsingPoint:[tapGestureRecognizer locationInView:self.view]];
-        if (myLabel) {
+        if (([myLabel.text isEqual:@"X"]) || ([myLabel.text isEqual:@"O"])) {
+            self.whichPlayerLabel.text = [NSString stringWithFormat:@"Hey Player %@! That Square Is Occupied!",self.currentPlayer];
+            [self.whichPlayerLabel sizeToFit];
+            self.whichPlayerLabel.alpha = 1.0f;
+        }
+        else if (myLabel) {
             if ([self.currentPlayer  isEqual: @"X"]) {
                 myLabel.textColor = [UIColor redColor];
                 myLabel.text = @"X";
                 myLabel.alpha=1.0f;
+                self.numberOfMoves++;
                 self.currentPlayer = @"O";
                 self.whichPlayerLabel.text = @"Player O's turn.";
                 self.whichPlayerLabel.alpha = 1.0f;
-
             }
             else {
                 myLabel.textColor = [UIColor blueColor];
                 myLabel.text = @"O";
                 myLabel.alpha = 1.0f;
+                self.numberOfMoves++;
                 self.currentPlayer = @"X";
                 self.whichPlayerLabel.text = @"Player X's turn.";
                 self.whichPlayerLabel.alpha = 1.0f;
@@ -76,7 +83,7 @@
         self.winner = [self whoWon];
         if (self.winner) {
             self.whichPlayerLabel.text = [NSString stringWithFormat:@"Player %@ Has WON! The Game Is Over... See Ryan For Your Prize.",self.winner];
-            [self.whichPlayerLabel sizeToFit];
+//            [self.whichPlayerLabel sizeToFit];
             self.whichPlayerLabel.alpha = 1.0f;
             self.resetButton.alpha = 1.0f;
             self.gameOver = YES;
@@ -91,8 +98,22 @@
     //        [self resetGame];
 
         }
+        
+        else if (self.numberOfMoves > 8) {
+            self.whichPlayerLabel.text = [NSString stringWithFormat:@"It's a Draw! No more moves left."];
+  //          [self.whichPlayerLabel sizeToFit];
+            self.whichPlayerLabel.alpha = 1.0f;
+            self.resetButton.alpha = 1.0f;
+            self.gameOver = YES;
+            
+            UIAlertView *theAlert = [[UIAlertView alloc] initWithTitle:@"Game Over"
+                                                               message:[NSString stringWithFormat:@"Ends In A Draw."]
+                                                              delegate:self
+                                                     cancelButtonTitle:@"Ok!"
+                                                     otherButtonTitles:@"New Game",nil];
+            [theAlert show];
+        }
     }
-    
 }
 
 - (void)alertView:(UIAlertView *)theAlert clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -322,6 +343,8 @@
     
     self.whichPlayerLabel.text = [NSString stringWithFormat:@"Player %@ goes first.", self.currentPlayer];
 
+    self.numberOfMoves = 0;
+    
     // Coommenting out to keep alternating players regardless of winner
     //    self.currentPlayer = @"X";
 
