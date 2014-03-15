@@ -8,7 +8,7 @@
 
 #import "FLXViewController.h"
 
-@interface FLXViewController ()
+@interface FLXViewController () <UIAlertViewDelegate>
 @property (strong, nonatomic) IBOutlet UILabel *myLabelOne;
 
 @property (strong, nonatomic) IBOutlet UILabel *myLabelTwo;
@@ -81,9 +81,28 @@
             self.resetButton.alpha = 1.0f;
             self.gameOver = YES;
             
+            UIAlertView *theAlert = [[UIAlertView alloc] initWithTitle:@"Game Over"
+                                                               message:[NSString stringWithFormat:@"Player %@ Has Won!", self.winner]
+                                                              delegate:self
+                                                     cancelButtonTitle:@"Ok!"
+                                                     otherButtonTitles:@"New Game",nil];
+            [theAlert show];
+            
     //        [self resetGame];
 
         }
+    }
+    
+}
+
+- (void)alertView:(UIAlertView *)theAlert clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"The %@ button was tapped.", [theAlert buttonTitleAtIndex:buttonIndex]);
+    if ([[theAlert buttonTitleAtIndex:buttonIndex] isEqualToString:@"Ok!"]) {
+        // do nothing right now
+    }
+    else if ([[theAlert buttonTitleAtIndex:buttonIndex] isEqualToString:@"New Game"]) {
+        [self resetGame];
     }
     
 }
@@ -301,8 +320,11 @@
     
     self.resetButton.alpha = 0.0f;
     
-    self.whichPlayerLabel.text = @"Player X goes first.";
-    self.currentPlayer = @"X";
+    self.whichPlayerLabel.text = [NSString stringWithFormat:@"Player %@ goes first.", self.currentPlayer];
+
+    // Coommenting out to keep alternating players regardless of winner
+    //    self.currentPlayer = @"X";
+
 }
 - (IBAction)resetButtonPressed:(id)sender {
     
