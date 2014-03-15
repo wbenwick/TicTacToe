@@ -7,13 +7,13 @@
 //
 
 #import "FLXAppDelegate.h"
-#import <CheckMate/CheckMate.h>
+//#import <CheckMate/CheckMate.h>
 
 @implementation FLXAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [CheckMate initializeFramework:@"f24bd71f0f486ddf9eb31aec365065ad"];
+ //   [CheckMate initializeFramework:@"f24bd71f0f486ddf9eb31aec365065ad"];
     return YES;
 }
 							

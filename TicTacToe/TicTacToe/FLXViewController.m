@@ -21,6 +21,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *myLabelNine;
 @property (strong, nonatomic) IBOutlet UILabel *whichPlayerLabel;
 @property (strong, nonatomic) IBOutlet NSString *currentPlayer;
+@property (strong, nonatomic) IBOutlet NSString *winner;
 
 
 @end
@@ -34,6 +35,7 @@
     
     // X always goes first
     self.currentPlayer = @"X";
+    [self resetGame];
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,6 +61,13 @@
             myLabel.alpha = 1.0f;
             self.currentPlayer = @"X";
         }
+    }
+    
+    self.winner = [self whoWon];
+    if (self.winner) {
+        self.whichPlayerLabel.text = [NSString stringWithFormat:@"Player %@ Has WON! The Game Is Over... See Ryan For Your Prize.",self.winner];
+        self.whichPlayerLabel.
+        self.whichPlayerLabel.alpha = 1.0f;
     }
     
 }
@@ -106,5 +115,53 @@
     return nil;
 }
 
+- (NSString*)whoWon
+{
+    
+    // Logic here is simple, will make 2 passes, one for X, the other for O
+    // If either player has a combination of the following boxes marked respectively, they win
+    // Combo 1 - any line across (labels 1,2,3) or (labels 4,5,6) or labels(7,8,9)
+    // Combo 2 - any line down (labels 1,4,7) or labels (2,5,8) or labels (3,6,9)
+    // Combo 3 - any line diagonal (labels 1,5,9) or labels (3,5,7)
+    
+    if ([self.myLabelOne.text isEqual: @"X"]) {
+        if ([self.myLabelTwo.text isEqual: @"X"]) {
+            if ([self.myLabelThree.text isEqual: @"X"]) {
+                return @"X";
+            }
+        }
+    }
+
+    else if ([self.myLabelFour.text isEqual: @"X"]) {
+        if ([self.myLabelFive.text isEqual: @"X"]) {
+            if ([self.myLabelSix.text isEqual: @"X"]) {
+                return @"X";
+            }
+        }
+    }
+    
+    else if ([self.myLabelSeven.text isEqual: @"X"]) {
+        if ([self.myLabelEight.text isEqual: @"X"]) {
+            if ([self.myLabelNine.text isEqual: @"X"]) {
+                return @"X";
+            }
+        }
+    }
+    
+    return nil;
+}
+
+- (void)resetGame
+{
+    self.myLabelOne.text = @"";
+    self.myLabelTwo.text = @"";
+    self.myLabelThree.text = @"";
+    self.myLabelFour.text = @"";
+    self.myLabelFive.text = @"";
+    self.myLabelSix.text = @"";
+    self.myLabelSeven.text = @"";
+    self.myLabelEight.text = @"";
+    self.myLabelNine.text = @"";
+}
 
 @end

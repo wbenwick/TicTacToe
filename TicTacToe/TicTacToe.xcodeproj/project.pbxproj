@@ -21,7 +21,6 @@
 		C3382BF618D4D6C000426164 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3382BD818D4D6BF00426164 /* UIKit.framework */; };
 		C3382BFE18D4D6C000426164 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3382BFC18D4D6C000426164 /* InfoPlist.strings */; };
 		C3382C0018D4D6C000426164 /* TicTacToeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3382BFF18D4D6C000426164 /* TicTacToeTests.m */; };
-		C3382C0A18D4D70000426164 /* CheckMate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3382C0918D4D70000426164 /* CheckMate.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +53,6 @@
 		C3382BFB18D4D6C000426164 /* TicTacToeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TicTacToeTests-Info.plist"; sourceTree = "<group>"; };
 		C3382BFD18D4D6C000426164 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C3382BFF18D4D6C000426164 /* TicTacToeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TicTacToeTests.m; sourceTree = "<group>"; };
-		C3382C0918D4D70000426164 /* CheckMate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CheckMate.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +60,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3382C0A18D4D70000426164 /* CheckMate.framework in Frameworks */,
 				C3382BD718D4D6BF00426164 /* CoreGraphics.framework in Frameworks */,
 				C3382BD918D4D6BF00426164 /* UIKit.framework in Frameworks */,
 				C3382BD518D4D6BF00426164 /* Foundation.framework in Frameworks */,
@@ -104,7 +101,6 @@
 		C3382BD318D4D6BF00426164 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C3382C0918D4D70000426164 /* CheckMate.framework */,
 				C3382BD418D4D6BF00426164 /* Foundation.framework */,
 				C3382BD618D4D6BF00426164 /* CoreGraphics.framework */,
 				C3382BD818D4D6BF00426164 /* UIKit.framework */,
