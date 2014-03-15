@@ -22,6 +22,10 @@
 @property (strong, nonatomic) IBOutlet UILabel *whichPlayerLabel;
 @property (strong, nonatomic) IBOutlet NSString *currentPlayer;
 @property (strong, nonatomic) IBOutlet NSString *winner;
+@property (strong, nonatomic) IBOutlet NSNumber *numberOfMoves;
+
+@property BOOL gameOver;
+@property (strong, nonatomic) IBOutlet UIButton *resetButton;
 
 
 @end
@@ -47,27 +51,34 @@
 - (IBAction)onLabelTapped:(UITapGestureRecognizer*)tapGestureRecognizer
 {
     NSLog(@"Label Tapped.");
-    UILabel* myLabel = [self findLabelUsingPoint:[tapGestureRecognizer locationInView:self.view]];
-    if (myLabel) {
-        if ([self.currentPlayer  isEqual: @"X"]) {
-            myLabel.textColor = [UIColor redColor];
-            myLabel.text = @"X";
-            myLabel.alpha=1.0f;
-            self.currentPlayer = @"O";
+    if (!self.gameOver) {
+        UILabel* myLabel = [self findLabelUsingPoint:[tapGestureRecognizer locationInView:self.view]];
+        if (myLabel) {
+            if ([self.currentPlayer  isEqual: @"X"]) {
+                myLabel.textColor = [UIColor redColor];
+                myLabel.text = @"X";
+                myLabel.alpha=1.0f;
+                self.currentPlayer = @"O";
+            }
+            else {
+                myLabel.textColor = [UIColor blueColor];
+                myLabel.text = @"O";
+                myLabel.alpha = 1.0f;
+                self.currentPlayer = @"X";
+            }
         }
-        else {
-            myLabel.textColor = [UIColor blueColor];
-            myLabel.text = @"O";
-            myLabel.alpha = 1.0f;
-            self.currentPlayer = @"X";
+        
+        self.winner = [self whoWon];
+        if (self.winner) {
+            self.whichPlayerLabel.text = [NSString stringWithFormat:@"Player %@ Has WON! The Game Is Over... See Ryan For Your Prize.",self.winner];
+            [self.whichPlayerLabel sizeToFit];
+            self.whichPlayerLabel.alpha = 1.0f;
+            self.resetButton.alpha = 1.0f;
+            self.gameOver = YES;
+            
+    //        [self resetGame];
+
         }
-    }
-    
-    self.winner = [self whoWon];
-    if (self.winner) {
-        self.whichPlayerLabel.text = [NSString stringWithFormat:@"Player %@ Has WON! The Game Is Over... See Ryan For Your Prize.",self.winner];
-        self.whichPlayerLabel.
-        self.whichPlayerLabel.alpha = 1.0f;
     }
     
 }
@@ -124,6 +135,8 @@
     // Combo 2 - any line down (labels 1,4,7) or labels (2,5,8) or labels (3,6,9)
     // Combo 3 - any line diagonal (labels 1,5,9) or labels (3,5,7)
     
+    // Winning Combo 1
+    
     if ([self.myLabelOne.text isEqual: @"X"]) {
         if ([self.myLabelTwo.text isEqual: @"X"]) {
             if ([self.myLabelThree.text isEqual: @"X"]) {
@@ -147,6 +160,122 @@
             }
         }
     }
+
+    // Winning Combo 2
+    
+    if ([self.myLabelOne.text isEqual: @"X"]) {
+        if ([self.myLabelFour.text isEqual: @"X"]) {
+            if ([self.myLabelSeven.text isEqual: @"X"]) {
+                return @"X";
+            }
+        }
+    }
+    
+    else if ([self.myLabelTwo.text isEqual: @"X"]) {
+        if ([self.myLabelFive.text isEqual: @"X"]) {
+            if ([self.myLabelEight.text isEqual: @"X"]) {
+                return @"X";
+            }
+        }
+    }
+    
+    else if ([self.myLabelThree.text isEqual: @"X"]) {
+        if ([self.myLabelSix.text isEqual: @"X"]) {
+            if ([self.myLabelNine.text isEqual: @"X"]) {
+                return @"X";
+            }
+        }
+    }
+    
+    // Winning Combo 3
+    
+    if ([self.myLabelOne.text isEqual: @"X"]) {
+        if ([self.myLabelFive.text isEqual: @"X"]) {
+            if ([self.myLabelNine.text isEqual: @"X"]) {
+                return @"X";
+            }
+        }
+    }
+    
+    else if ([self.myLabelThree.text isEqual: @"X"]) {
+        if ([self.myLabelFive.text isEqual: @"X"]) {
+            if ([self.myLabelSeven.text isEqual: @"X"]) {
+                return @"X";
+            }
+        }
+    }
+
+    
+    // Winning Combon 1 for "O"
+    
+    if ([self.myLabelOne.text isEqual: @"O"]) {
+        if ([self.myLabelTwo.text isEqual: @"O"]) {
+            if ([self.myLabelThree.text isEqual: @"O"]) {
+                return @"O";
+            }
+        }
+    }
+    
+    else if ([self.myLabelFour.text isEqual: @"O"]) {
+        if ([self.myLabelFive.text isEqual: @"O"]) {
+            if ([self.myLabelSix.text isEqual: @"O"]) {
+                return @"O";
+            }
+        }
+    }
+    
+    else if ([self.myLabelSeven.text isEqual: @"O"]) {
+        if ([self.myLabelEight.text isEqual: @"O"]) {
+            if ([self.myLabelNine.text isEqual: @"O"]) {
+                return @"O";
+            }
+        }
+    }
+    
+    // Winning Combo 2
+    
+    if ([self.myLabelOne.text isEqual: @"O"]) {
+        if ([self.myLabelFour.text isEqual: @"O"]) {
+            if ([self.myLabelSeven.text isEqual: @"O"]) {
+                return @"O";
+            }
+        }
+    }
+    
+    else if ([self.myLabelTwo.text isEqual: @"O"]) {
+        if ([self.myLabelFive.text isEqual: @"O"]) {
+            if ([self.myLabelEight.text isEqual: @"O"]) {
+                return @"O";
+            }
+        }
+    }
+    
+    else if ([self.myLabelThree.text isEqual: @"O"]) {
+        if ([self.myLabelSix.text isEqual: @"O"]) {
+            if ([self.myLabelNine.text isEqual: @"O"]) {
+                return @"O";
+            }
+        }
+    }
+    
+    // Winning Combo 3
+    
+    if ([self.myLabelOne.text isEqual: @"O"]) {
+        if ([self.myLabelFive.text isEqual: @"O"]) {
+            if ([self.myLabelNine.text isEqual: @"O"]) {
+                return @"O";
+            }
+        }
+    }
+    
+    else if ([self.myLabelThree.text isEqual: @"O"]) {
+        if ([self.myLabelFive.text isEqual: @"O"]) {
+            if ([self.myLabelSeven.text isEqual: @"O"]) {
+                return @"O";
+            }
+        }
+    }
+    
     
     return nil;
 }
@@ -162,6 +291,17 @@
     self.myLabelSeven.text = @"";
     self.myLabelEight.text = @"";
     self.myLabelNine.text = @"";
+    
+    self.gameOver = NO;
+    
+    self.resetButton.alpha = 0.0f;
+    
+    self.whichPlayerLabel.text = @"Player X goes first.";
+}
+- (IBAction)resetButtonPressed:(id)sender {
+    
+    [self resetGame];
+    
 }
 
 @end
